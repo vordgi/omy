@@ -7,10 +7,17 @@ export const search = async (text: string) => {
         process.exit();
     }
     const config = await getConfig();
-    
-    let waitingList = '';
 
-    await ommySearch(text, config.token, (part) => {
+    console.log('Thinking...');
+
+    let waitingList = '';
+    let isTyping = false;
+    await ommySearch({text, token: config.token, spaceId: config.space, onPump: (part) => {
+        if (!isTyping) {
+            isTyping = true;
+            process.stdout.moveCursor(0, -1);
+            process.stdout.clearLine(1);
+        }
         if (part.match(/<(a|$)/) || waitingList.match(/<(a|$)( |$)(h|$)(r|$)(e|$)(f|$)(=|$)("|$)([^"]+|$)("|$)( ?|$)(\/|$)(>|$)/)) {
             waitingList += part;
             waitingList = waitingList.replace(/<a href="[^"]+" ?\/>/, '');
@@ -18,6 +25,6 @@ export const search = async (text: string) => {
             process.stdout.write(waitingList + part);
             waitingList = '';
         }
-    });
+    }});
     process.stdout.write(waitingList);
 }

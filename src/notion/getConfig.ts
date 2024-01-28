@@ -9,7 +9,8 @@ const getConfig = async (inSetConfig?: boolean) => {
 		const cachedConfig = JSON.parse(data.toString());
 
 		if (cachedConfig?.token) return cachedConfig;
-	} else if (inSetConfig) {
+	}
+	if (inSetConfig) {
 		return {};
 	}
 
