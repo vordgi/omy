@@ -2,7 +2,7 @@
 import inquirer from 'inquirer';
 import cacache from 'cacache';
 import getConfig from './getConfig';
-import getSpaces from 'ommy/notion/getSpaces';
+import getSpaces from 'ommy/notion/lib/getSpaces';
 
 const prompt = inquirer.createPromptModule();
 

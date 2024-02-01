@@ -12,7 +12,7 @@ export const search = async (text: string) => {
 
     let waitingList = '';
     let isTyping = false;
-    await ommySearch({text, token: config.token, spaceId: config.space, onPump: (part) => {
+    await ommySearch({text, token: config.token, spaceId: config.space, delay: 0, onPump: (part) => {
         if (!isTyping) {
             isTyping = true;
             process.stdout.moveCursor(0, -1);
